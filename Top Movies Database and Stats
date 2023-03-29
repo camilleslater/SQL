@@ -1,4 +1,4 @@
---Create a database of top movies. Database source: gist.github.com/pamelafox/c705b02114ea3db0dff0
+--Create a database of top movies. Data set source: gist.github.com/pamelafox/c705b02114ea3db0dff0
 
 /* Source: http://www.boxofficemojo.com/alltime/world/ */
 CREATE TABLE topmovies(
