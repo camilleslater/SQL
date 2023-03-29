@@ -1,0 +1,28 @@
+--Create a clothing store database
+
+CREATE TABLE clothing_store (id INTEGER PRIMARY KEY, name TEXT, type TEXT, color TEXT, price INTEGER);
+
+INSERT INTO clothing_store VALUES (1, "high waist shorts", "bottoms", "black", 15);
+INSERT INTO clothing_store VALUES (2, "wide leg jeans", "bottoms", "blue", 20);
+INSERT INTO clothing_store VALUES (3, "slacks", "bottoms", "brown", 25);
+INSERT INTO clothing_store VALUES (4, "skinny jeans", "bottoms", "black", 20);
+INSERT INTO clothing_store VALUES (5, "mini skirt", "bottoms", "black", 15);
+INSERT INTO clothing_store VALUES (6, "button down", "tops", "white", 20);
+INSERT INTO clothing_store VALUES (7, "tank", "tops", "blue", 10);
+INSERT INTO clothing_store VALUES (8, "crop top", "tops", "yellow", 10);
+INSERT INTO clothing_store VALUES (9, "sweater", "tops", "brown", 25);
+INSERT INTO clothing_store VALUES (10, "blazer", "tops", "black", 30);
+INSERT INTO clothing_store VALUES (11, "boots", "shoes", "black", 30);
+INSERT INTO clothing_store VALUES (12, "heels", "shoes", "black", 30);
+INSERT INTO clothing_store VALUES (13, "sandals", "shoes", "gold", 25);
+INSERT INTO clothing_store VALUES (14, "scarf", "accessories", "yellow", 10);
+INSERT INTO clothing_store VALUES (15, "clutch", "accessories", "gold", 20);
+
+--display the database ordered by price
+SELECT * FROM clothing_store ORDER BY price;
+
+--what is the avg price of items of each type?
+SELECT type, AVG(price) FROM clothing_store GROUP BY type;
+
+--what are the 5 most expensive items?
+SELECT name, price FROM clothing_store ORDER BY price DESC LIMIT 5;
