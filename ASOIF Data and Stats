@@ -1,0 +1,74 @@
+/*--Create a table of characters from the A Song of Ice and Fire book series*/
+
+CREATE TABLE characters (id INTEGER PRIMARY KEY, name TEXT, house_loyalty TEXT);
+INSERT INTO characters VALUES (1, 'Eddard Stark', 'Stark');
+INSERT INTO characters VALUES (2, 'Catelyn Stark', 'Stark');
+INSERT INTO characters VALUES (3, 'Daenerys Targaryen', 'Targaryen');
+INSERT INTO characters VALUES (4, 'Tyrion Lannister', 'Lannister');
+INSERT INTO characters VALUES (5, 'Jon Snow', 'Nights Watch');
+INSERT INTO characters VALUES (6, 'Bran Stark', 'Stark');
+INSERT INTO characters VALUES (7, 'Sansa Stark', 'Stark');
+INSERT INTO characters VALUES (8, 'Arya Stark', 'Stark');
+INSERT INTO characters VALUES (9, 'Theon Greyjoy', 'Greyjoy');
+INSERT INTO characters VALUES (10, 'Davos Seaworth', 'Baratheon');
+INSERT INTO characters VALUES (11, 'Jaime Lannister', 'Lannister');
+INSERT INTO characters VALUES (12, 'Samwell Tarly', 'Nights Watch');
+
+/*Create a table of books from the A Song of Ice and Fire series*/
+
+CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT);
+INSERT INTO books VALUES (1, 'A Game of Thrones');
+INSERT INTO books VALUES (2, 'A Clash of Kings');
+INSERT INTO books VALUES (3, 'A Storm of Swords');
+
+/*Create a table of POV characters in each book from the A Song of Ice and Fire series*/
+
+CREATE TABLE pov (id INTEGER PRIMARY KEY AUTOINCREMENT, book INTEGER, character INTEGER, chapter_count INTEGER);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 1, 15);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 2, 11);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 3, 10);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 4, 9);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 5, 9);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 6, 7);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 7, 6);
+INSERT INTO pov (book, character, chapter_count) VALUES (1, 8, 5);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 4, 15);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 8, 10);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 5, 8);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 7, 8);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 6, 7);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 2, 7);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 9, 6);
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 3, 5); 
+INSERT INTO pov (book, character, chapter_count) VALUES (2, 10, 3);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 8, 13);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 5, 12);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 4, 11);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 11, 9);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 2, 7);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 7, 7);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 10, 6);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 3, 6);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 12, 5);
+INSERT INTO pov (book, character, chapter_count) VALUES (3, 6, 4);
+
+/*--display a list of POV character names in A Game of Thrones*/
+
+SELECT characters.name
+FROM characters
+JOIN pov
+    ON characters.id=pov.character
+WHERE pov.book=1;
+
+/*--identify the book with the most chapters of POV characters outside of House Stark*/
+
+SELECT books.title
+FROM pov
+JOIN books
+    ON books.id=pov.book
+JOIN characters
+    ON pov.character=characters.id
+WHERE NOT characters.house_loyalty='Stark'
+GROUP BY pov.book
+ORDER BY SUM(pov.chapter_count) DESC
+LIMIT 1;
