@@ -1,4 +1,6 @@
-/*--Create a table of characters from the A Song of Ice and Fire book series*/
+--In this SQL code, I'm creating a database holding information about the A Song of Ice and Fire book series and querying it to answer questions about the data.
+
+/*Create a table of characters from the A Song of Ice and Fire book series*/
 
 CREATE TABLE characters (id INTEGER PRIMARY KEY, name TEXT, house_loyalty TEXT);
 INSERT INTO characters VALUES (1, 'Eddard Stark', 'Stark');
