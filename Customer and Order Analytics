@@ -1,6 +1,6 @@
 --In this SQL code, I'm querying a database containing customer and order data to answer questions about the data.
 
---1. How many orders were placed in January? Remember to filter out the blank and incorrect order IDs like we did in the "dealing with messy data" section of the previous lesson!--
+--1. How many orders were placed in January?--
 SELECT COUNT(orderID) 
 FROM BIT_DB.JanSales
 WHERE orderID <> 'Order ID'
@@ -29,7 +29,7 @@ SELECT DISTINCT Product, price
 FROM BIT_DB.JanSales
 WHERE price IN (SELECT MIN(price) FROM BIT_DB.JanSales);
 
---5. What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products).--
+--5. What is the total revenue for each product sold in January?--
 
 SELECT Product, SUM(Quantity)*price AS Revenue 
 FROM BIT_DB.JanSales
