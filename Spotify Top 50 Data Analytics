@@ -1,0 +1,59 @@
+--In this SQL code, I'm querying a table of Spotify Top 50 Songs data to answer questions about the data.
+
+--1. Which Top 50 song is the most danceable?
+SELECT artist_name, track_name
+FROM BIT_DB.Spotifydata
+WHERE danceability =(SELECT MAX(danceability) FROM BIT_DB.Spotifydata);
+
+--2. Which Top 50 song is the most popular?
+SELECT artist_name, track_name
+FROM BIT_DB.Spotifydata
+WHERE popularity =(SELECT MAX(popularity) FROM BIT_DB.Spotifydata);
+
+--3. Which artist has the most songs in the Top 50?
+SELECT artist_name, COUNT(artist_name) songs
+FROM BIT_DB.Spotifydata  
+GROUP BY artist_name 
+HAVING COUNT(artist_name)=( 
+SELECT MAX(song_count) 
+FROM ( 
+SELECT COUNT(artist_name) song_count 
+FROM BIT_DB.Spotifydata 
+GROUP BY artist_name));
+
+--4. Which is the most popular song key of the Top 50 songs?
+SELECT song_key, COUNT(song_key) songs
+FROM BIT_DB.Spotifydata
+GROUP BY song_key
+HAVING COUNT(song_key)=(
+SELECT MAX(key_count)
+FROM (
+SELECT COUNT(song_key) key_count
+FROM BIT_DB.Spotifydata
+GROUP BY song_key));
+
+--Or:
+SELECT song_key, COUNT(song_key) songs
+FROM BIT_DB.Spotifydata
+GROUP BY song_key
+ORDER BY COUNT(song_key) DESC
+LIMIT 1;
+
+--5. What is the average duration of the top 10 most popular songs?
+SELECT AVG(duration_ms)
+FROM BIT_DB.Spotifydata
+WHERE track_id IN (
+SELECT track_id
+FROM BIT_DB.Spotifydata
+ORDER BY popularity DESC
+LIMIT 10);
+
+--6. What is the average tempo of songs with over 0.8 danceability?
+SELECT AVG(tempo)
+FROM BIT_DB.Spotifydata
+WHERE danceability >=0.8;
+
+--7. Which songs have a tempo between 170-190 or between 85-95?
+SELECT artist_name, track_name, tempo
+FROM BIT_DB.Spotifydata
+WHERE tempo BETWEEN 170 AND 190 OR tempo BETWEEN 85 AND 90;
