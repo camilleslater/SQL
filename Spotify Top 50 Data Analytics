@@ -1,6 +1,5 @@
-/*In this SQL code, I downloaded Spotify 10 50 songs data from Kaggle, 
-created a table to insert the Spotify data into, and queried the table 
-to answer questions about the data.*/
+/*In this SQL code, I downloaded Spotify 10 50 songs data from Kaggle, created a 
+table to insert the Spotify data into, and  and performed analytics on the table.*/
 
 --Creating the table:
 CREATE TABLE BIT_DB.Spotifydata (
@@ -85,3 +84,14 @@ WHERE danceability >=0.8;
 SELECT artist_name, track_name, tempo
 FROM BIT_DB.Spotifydata
 WHERE tempo BETWEEN 170 AND 190 OR tempo BETWEEN 85 AND 90;
+
+--8. Calculate the average popularity for the artists in the Spotify data table. 
+--Then, for every artist with an average popularity of 90 or above, show their name, their average popularity, and label them as a “Top Star”.
+WITH artist_avg_pop AS (
+SELECT artist_name, AVG(popularity) AS avg_pop
+FROM Spotifydata
+GROUP BY artist_name)
+
+SELECT artist_name, avg_pop, 'Top Star' AS label
+FROM artist_avg_pop
+WHERE avg_pop >=90;
