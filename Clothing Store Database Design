@@ -23,8 +23,8 @@ INSERT INTO clothing_store VALUES (15, "clutch", "accessories", "gold", 20);
 --display the database ordered by price
 SELECT * FROM clothing_store ORDER BY price;
 
---what is the avg price of items of each type?
+--what is the avg price of products of each type?
 SELECT type, AVG(price) FROM clothing_store GROUP BY type;
 
---what are the 5 most expensive items?
+--what are the 5 most expensive products?
 SELECT name, price FROM clothing_store ORDER BY price DESC LIMIT 5;
